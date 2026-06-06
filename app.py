@@ -298,7 +298,7 @@ for idx, route in enumerate(routes_final):
     fig_map.add_trace(go.Scattermapbox(
         lat=lats, lon=lons,
         mode="lines",
-        line=dict(width=3, color=color),
+        line=dict(width=4, color=color),
         name=f"Ruta {idx+1} ({loads_final[idx]}/{capacity}p · {dists_final[idx]:.0f}km)",
         hoverinfo="skip",
     ))
@@ -308,7 +308,7 @@ for node_id, (lat, lon) in COORDS.items():
     is_depot = node_id == 0
     d = DEMAND.get(node_id, 0)
     size = 18 if is_depot else (8 + d // 5)
-    color = "#E63946" if is_depot else "#2A9D8F"
+    color = "#C1121F" if is_depot else "#1B6CA8"
     text = f"<b>{CANTONES[node_id]}</b><br>Demanda: {d} pallets" if not is_depot else "<b>CD Puntarenas</b><br>Depósito"
     fig_map.add_trace(go.Scattermapbox(
         lat=[lat], lon=[lon],
@@ -324,19 +324,20 @@ for node_id, (lat, lon) in COORDS.items():
 
 fig_map.update_layout(
     mapbox=dict(
-        style="carto-darkmatter",
+        style="carto-positron",
         center=dict(lat=9.3, lon=-84.0),
         zoom=7.2,
     ),
     margin=dict(l=0, r=0, t=0, b=0),
     height=520,
     legend=dict(
-        bgcolor="rgba(13,17,23,0.8)",
-        bordercolor="#2d3748",
-        font=dict(color="#edf2f4", size=11),
+        bgcolor="rgba(255,255,255,0.88)",
+        bordercolor="#cbd5e0",
+        borderwidth=1,
+        font=dict(color="#1a202c", size=11),
     ),
-    paper_bgcolor="#0d1117",
-    plot_bgcolor="#0d1117",
+    paper_bgcolor="#ffffff",
+    plot_bgcolor="#ffffff",
 )
 st.plotly_chart(fig_map, use_container_width=True)
 
